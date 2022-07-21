@@ -34,7 +34,7 @@ RUN apt -y update && apt -y upgrade && \
 WORKDIR /riscv/
 
 # Build toolchain
-RUN git clone https://github.com/riscv/riscv-gnu-toolchain
+RUN git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
 RUN cd riscv-gnu-toolchain
 RUN ./configure --prefix=/opt/riscv
 RUN make -j $(nproc) linux
@@ -45,4 +45,7 @@ FROM ubuntu:20.04 as production-stage
 COPY --from=build-stage /opt/riscv /opt/riscv
 
 ENV PATH="/opt/riscv:${PATH}"
+
+# Test if requirements exists
+RUN command -v riscv64-unknown-elf-gcc
 CMD ["bash"]
