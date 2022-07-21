@@ -27,7 +27,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install prerequisites
 RUN apt -y update && apt -y upgrade && \
-    apt -y autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev \
+    apt -y install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev \
            libgmp-dev gawk build-essential bison flex texinfo gperf libtool \
            patchutils bc zlib1g-dev libexpat-dev
 
