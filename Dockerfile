@@ -38,7 +38,7 @@ WORKDIR /riscv/riscv-gnu-toolchain/
 RUN ./configure --prefix=/opt/riscv
 RUN make -j $(nproc) linux
 RUN make -j $(nproc) build-qemu
-RUN make Install
+RUN make install
 
 FROM ubuntu:20.04 as production-stage
 COPY --from=build-stage /opt/riscv /opt/riscv
