@@ -18,5 +18,4 @@ jobs:
         uses: rlespinasse/github-slug-action@v3.x
 
       - name: Build
-        run: |
-          docker build .
+        run: make
