@@ -45,6 +45,7 @@ RUN make install
 FROM ubuntu:20.04 as production-stage
 COPY --from=build-stage /opt/riscv /opt/riscv
 ENV PATH="/opt/riscv/bin:${PATH}"
+ENV RISCV="/opt/riscv/"
 
 # Test if requirements exists
 RUN command -v riscv64-unknown-linux-gnu-gcc
