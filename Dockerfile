@@ -29,7 +29,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt -y update && apt -y upgrade && \
     apt -y install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev \
            libgmp-dev gawk build-essential bison flex texinfo gperf libtool \
-           patchutils bc zlib1g-dev libexpat-dev git
+           patchutils bc zlib1g-dev libexpat-dev git \
+           pkg-config ninja-build \
+           libglib2.0-dev libpixman-1-dev
 
 # Build toolchain
 WORKDIR /riscv/
@@ -42,8 +44,8 @@ RUN make install
 
 FROM ubuntu:20.04 as production-stage
 COPY --from=build-stage /opt/riscv /opt/riscv
-ENV PATH="/opt/riscv:${PATH}"
+ENV PATH="/opt/riscv/bin:${PATH}"
 
 # Test if requirements exists
-RUN command -v riscv64-unknown-elf-gcc
+RUN command -v riscv64-unknown-linux-gnu-gcc
 CMD ["bash"]
