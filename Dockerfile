@@ -31,11 +31,10 @@ RUN apt -y update && apt -y upgrade && \
            libgmp-dev gawk build-essential bison flex texinfo gperf libtool \
            patchutils bc zlib1g-dev libexpat-dev git
 
-WORKDIR /riscv/
-
 # Build toolchain
+WORKDIR /riscv/
 RUN git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
-RUN cd riscv-gnu-toolchain
+WORKDIR /riscv/riscv-gnu-toolchain/
 RUN ./configure --prefix=/opt/riscv
 RUN make -j $(nproc) linux
 RUN make -j $(nproc) build-qemu
@@ -43,7 +42,6 @@ RUN make Install
 
 FROM ubuntu:20.04 as production-stage
 COPY --from=build-stage /opt/riscv /opt/riscv
-
 ENV PATH="/opt/riscv:${PATH}"
 
 # Test if requirements exists
