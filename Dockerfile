@@ -43,6 +43,13 @@ RUN make -j $(nproc) build-qemu
 RUN make install
 
 FROM ubuntu:20.04 as production-stage
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt -y update && apt -y upgrade && \
+    apt -y install build-essential git clang libglib2.0-dev && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY --from=build-stage /opt/riscv /opt/riscv
 ENV PATH="/opt/riscv/bin:${PATH}"
 ENV RISCV="/opt/riscv/"
