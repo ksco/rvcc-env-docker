@@ -34,8 +34,8 @@ But before running `make test`, you first need to make the following changes in 
 
 - ./tmp
 - # $RISCV/bin/qemu-riscv64 -L $RISCV/sysroot ./tmp
++ # ./tmp
 + $RISCV/bin/qemu-riscv64 -L $RISCV/sysroot ./tmp
-+ # $RISCV/bin/spike --isa=rv64gc $RISCV/riscv64-unknown-linux-gnu/bin/pk ./tmp
 ```
 
 After doing your amazing work, you can simply type `exit` to leave the terminal and the Docker container will be gone without you needing to do any cleanup.
